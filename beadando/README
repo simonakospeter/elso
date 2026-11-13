@@ -1,0 +1,32 @@
+-Név: Simon Ákos Péter
+-Neptun kód: PASDDO
+-A program célja a felhasználó napi időbeosztásának nyilvántartása és elemzése. 
+A felhasználó megadja a dátumot, valamint azt, hogy a nap hány százalékát töltötte
+tanulással, telefonozással, közlekedéssel, munkával, szabadidős tevékenységekkel és alvással.
+A fennmaradó idő automatikusan az „Egyéb” kategóriába kerül.
+-A program futtatásához Python 3 és működő tkinter-támogatás szükséges. 
+A grafikus felületet a tkinter biztosítja, amely egyes Python-telepítésekben külön telepítendő összetevő lehet.
+Elérhetősége a következő paranccsal ellenőrizhető; megfelelő telepítés esetén egy tesztablak jelenik meg: python -m tkinter
+-A program az idonyilvantarto.py fájl futtatásával indítható el
+-A program használata
+  -A felhasználó megadja a dátumot EEEE-HH-NN formátumban, például 2026-11-13.
+  -A beviteli mezőkbe beírja a tevékenységek százalékos arányát. Amelyik tevékenységet nem végezte, annál meghagyhatja a nulla értéket.
+  -A „Nap rogzitese” gombra kattintva vagy az Enter billentyű megnyomásával rögzíti az adatokat.
+  -A „Napok listazasa” gombbal megtekintheti a rögzített napokat.
+  -A „Statisztika” gombbal megjelenítheti az összesítést.
+-Felépítés:
+  -Modulok:
+    -tkinter
+    -datetime
+  -Függvények:
+    -nap_ellenorzese(datum, szovegek, napok)
+    -napok_listazasa(napok)
+    -statisztika_keszitese(napok)
+    -statistics.mean()
+    -statistics.median()
+  -Osztályok:
+    -self.ablak
+    -self.napok
+    -self.mezok
+    -self.datum_mezo
+    -self.kimenet
