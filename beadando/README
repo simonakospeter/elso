@@ -7,7 +7,7 @@ A fennmaradó idő automatikusan az „Egyéb” kategóriába kerül.
 -A program futtatásához Python 3 és működő tkinter-támogatás szükséges. 
 A grafikus felületet a tkinter biztosítja, amely egyes Python-telepítésekben külön telepítendő összetevő lehet.
 Elérhetősége a következő paranccsal ellenőrizhető; megfelelő telepítés esetén egy tesztablak jelenik meg: python -m tkinter
--A program az idonyilvantarto.py fájl futtatásával indítható el
+-A program a main.py fájl futtatásával indítható el
 -A program használata
   -A felhasználó megadja a dátumot EEEE-HH-NN formátumban, például 2026-11-13.
   -A beviteli mezőkbe beírja a tevékenységek százalékos arányát. Amelyik tevékenységet nem végezte, annál meghagyhatja a nulla értéket.
