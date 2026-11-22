@@ -8,7 +8,7 @@ class Idonyilvantarto:
         self.ablak = ablak
         self.napok = []
         self.mezok = {}
-        self.ablak.title("Szemelyes idonyilvantarto")
+        self.ablak.title("Személyes időnyilvántartó")
         self.ablak.geometry("720x720")
         self.felulet_letrehozasa()
         self.ablak.bind("<Return>", self.nap_rogzitese)
@@ -16,16 +16,16 @@ class Idonyilvantarto:
     def felulet_letrehozasa(self):
         tk.Label(
             self.ablak,
-            text="Szemelyes idonyilvantarto",
+            text="Személyes időnyilvántarto",
             font=("Arial", 16)
         ).pack(pady=10)
 
         tk.Label(
             self.ablak,
             text=(
-                "A teljes nap 100%. Ne szamolja ugyanazt az idot "
-                "tobb kategoriaba!\n"
-                "A fennmarado resz az Egyeb kategoriaba kerul."
+                "A teljes nap 100%. Ne számolja ugyanazt az időt "
+                "több kategóriaba!\n"
+                "A fennmaradó rész az Egyéb kategóriába kerül."
             )
         ).pack(pady=5)
 
@@ -65,13 +65,13 @@ class Idonyilvantarto:
 
         tk.Button(
             gombok,
-            text="Nap rogzitese",
+            text="Nap rögzítése",
             command=self.nap_rogzitese
         ).pack(side=tk.LEFT, padx=5)
 
         tk.Button(
             gombok,
-            text="Napok listazasa",
+            text="Napok listázása",
             command=self.napok_megjelenitese
         ).pack(side=tk.LEFT, padx=5)
 
@@ -104,15 +104,15 @@ class Idonyilvantarto:
                 datum, szovegek, self.napok
             )
         except ValueError as hiba:
-            messagebox.showerror("Hibas adat", str(hiba))
+            messagebox.showerror("Hibás adat", str(hiba))
             return
 
         self.napok.append(nap)
         self.napok_megjelenitese()
 
         messagebox.showinfo(
-            "Sikeres rogzites",
-            f"A nap rogzitve.\nEgyeb ido: {nap['Egyeb']:.2f}%"
+            "Sikeres rögzítés",
+            f"A nap rögzítve.\nEgyéb idő: {nap['Egyéb']:.2f}%"
         )
 
         self.datum_mezo.delete(0, tk.END)
