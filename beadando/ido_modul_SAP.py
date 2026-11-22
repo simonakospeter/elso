@@ -2,12 +2,12 @@ import statistics
 from datetime import date
 
 TEVEKENYSEGEK = [
-    "Tanulas",
-    "Telefonozas",
-    "Kozlekedes",
+    "Tanulás",
+    "Telefonozás",
+    "Közlekedes",
     "Munka",
-    "Szabadido",
-    "Alvas"
+    "Szabadidő",
+    "Alvás"
 ]
 
 
@@ -17,11 +17,11 @@ def nap_ellenorzese(datum, szovegek, napok):
     try:
         datum = date.fromisoformat(datum).isoformat()
     except ValueError:
-        raise ValueError("Hibas datum! Pelda: 2026-11-02")
+        raise ValueError("Hibás dátum! Példa: 2026-11-02")
 
     for nap in napok:
         if nap["datum"] == datum:
-            raise ValueError("Ez a nap mar szerepel a nyilvantartasban.")
+            raise ValueError("Ez a nap már szerepel a nyilvántartásban.")
 
     ertekek = []
 
@@ -29,38 +29,38 @@ def nap_ellenorzese(datum, szovegek, napok):
         try:
             szazalek = float(szoveg.strip().replace(",", "."))
         except ValueError:
-            raise ValueError("Minden tevekenyseghez szamot adjon meg!")
+            raise ValueError("Minden tevékenységhez számot adjon meg!")
 
         if not 0 <= szazalek <= 100:
-            raise ValueError("A szazalek 0 es 100 kozott legyen!")
+            raise ValueError("A százalék 0 és 100 között legyen!")
 
         ertekek.append(szazalek)
 
     osszesen = sum(ertekek)
 
     if osszesen > 100:
-        raise ValueError("Az osszes szazalek nem lehet tobb 100-nal!")
+        raise ValueError("Az összes százalék nem lehet több 100-nál!")
 
     nap = {"datum": datum}
 
     for tevekenyseg, ertek in zip(TEVEKENYSEGEK, ertekek):
         nap[tevekenyseg] = ertek
 
-    nap["Egyeb"] = round(100 - osszesen, 2)
+    nap["Egyéb"] = round(100 - osszesen, 2)
 
     return nap
 
 
 def napok_listazasa(napok):
     if not napok:
-        return "Nincs rogzitett nap."
+        return "Nincs rögzített nap."
 
     sorok = []
 
     for nap in sorted(napok, key=lambda adat: adat["datum"]):
-        sorok.append(f"Datum: {nap['datum']}")
+        sorok.append(f"Dátum: {nap['datum']}")
 
-        for tevekenyseg in TEVEKENYSEGEK + ["Egyeb"]:
+        for tevekenyseg in TEVEKENYSEGEK + ["Egyéb"]:
             sorok.append(
                 f"  {tevekenyseg}: {nap[tevekenyseg]:.2f}%"
             )
@@ -72,16 +72,16 @@ def napok_listazasa(napok):
 
 def statisztika_keszitese(napok):
     if not napok:
-        return "Nincs adat a statisztikahoz."
+        return "Nincs adat a statisztikához."
 
     sorok = [
-        f"Rogzitett napok szama: {len(napok)}",
+        f"Rögzített napok száma: {len(napok)}",
         "",
-        "Tevekenysegenkenti statisztika:",
+        "Tevékenységenkénti statisztika:",
         ""
     ]
 
-    for tevekenyseg in TEVEKENYSEGEK + ["Egyeb"]:
+    for tevekenyseg in TEVEKENYSEGEK + ["Egyéb"]:
         ertekek = [nap[tevekenyseg] for nap in napok]
 
         atlag = statistics.mean(ertekek)
@@ -89,22 +89,22 @@ def statisztika_keszitese(napok):
         szoras = statistics.pstdev(ertekek)
 
         sorok.append(tevekenyseg)
-        sorok.append(f"  Atlag: {atlag:.2f}%")
-        sorok.append(f"  Median: {median:.2f}%")
-        sorok.append(f"  Szoras: {szoras:.2f} szazalekpont")
+        sorok.append(f"  Átlag: {atlag:.2f}%")
+        sorok.append(f"  Medián: {median:.2f}%")
+        sorok.append(f"  Szórás: {szoras:.2f} százalékpont")
         sorok.append("")
 
-    maximum = max(nap["Tanulas"] for nap in napok)
+    maximum = max(nap["Tanulás"] for nap in napok)
 
     datumok = [
         nap["datum"]
         for nap in napok
-        if nap["Tanulas"] == maximum
+        if nap["Tanulás"] == maximum
     ]
 
     sorok.append(
-        f"Legmagasabb tanulasi arany: {maximum:.2f}%"
+        f"Legmagasabb tanulási arány: {maximum:.2f}%"
     )
-    sorok.append("Erintett napok: " + ", ".join(datumok))
+    sorok.append("Érintett napok: " + ", ".join(datumok))
 
     return "\n".join(sorok)
